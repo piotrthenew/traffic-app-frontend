@@ -1,95 +1,194 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.container {
-  max-width: 1200px;
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+.App {
+  max-width: 1400px;
   margin: 0 auto;
   padding: 20px;
 }
 
-.form-section, .map-section, .reports-section {
-  margin: 20px 0;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-}
-
-form input, form textarea, form select {
-  display: block;
-  width: 100%;
-  margin: 10px 0;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.location-info {
-  background: #f0f8ff;
-  padding: 10px;
-  border-radius: 5px;
-  margin: 10px 0;
-  border-left: 4px solid #007bff;
-}
-
-button {
-  background: #007bff;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-button:hover {
-  background: #0056b3;
-}
-
-.report-card {
-  border: 1px solid #ccc;
-  padding: 15px;
-  margin: 10px 0;
-  border-radius: 5px;
-  text-align: left;
-  background: #f9f9f9;
-}
-
-.report-meta {
-  font-size: 0.9em;
-  color: #666;
-}
-
-.report-meta span {
-  display: block;
-  margin: 2px 0;
-}
-
+/* NAGŁÓWEK */
 .App-header {
-  background: #282c34;
-  color: white;
-  padding: 20px;
-  margin-bottom: 20px;
+  background: white;
+  border-radius: 20px;
+  padding: 20px 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .App-header h1 {
+  color: #333;
+  font-size: 1.8rem;
   margin: 0;
-  font-size: 2rem;
 }
 
 .App-header p {
-  margin: 5px 0 0 0;
-  opacity: 0.8;
+  color: #666;
+  margin-top: 5px;
 }
 
-/* Responsywność */
-@media (max-width: 768px) {
+.App-header button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: transform 0.2s;
+}
+
+.App-header button:hover {
+  transform: scale(1.05);
+}
+
+/* KONTENER */
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 25px;
+}
+
+/* SEKCJE */
+.form-section, .map-section, .reports-section {
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  margin-bottom: 25px;
+}
+
+.form-section h2, .map-section h2, .reports-section h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  border-left: 4px solid #667eea;
+  padding-left: 15px;
+}
+
+/* FORMULARZ */
+form input, form textarea, form select {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 16px;
+  transition: border-color 0.2s;
+}
+
+form input:focus, form textarea:focus, form select:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+form textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.location-info {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 15px;
+  border-radius: 12px;
+  margin: 15px 0;
+  text-align: center;
+  font-size: 14px;
+}
+
+button[type="submit"] {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 14px 30px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  width: 100%;
+  transition: transform 0.2s;
+}
+
+button[type="submit"]:hover {
+  transform: translateY(-2px);
+}
+
+/* MAPA */
+.map-section .leaflet-container {
+  border-radius: 15px;
+  border: 3px solid #667eea;
+}
+
+/* LISTA ZGŁOSZEŃ */
+.reports-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.report-card {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 15px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.report-card:hover {
+  transform: translateX(5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.report-card h3 {
+  color: #333;
+  margin-bottom: 8px;
+  font-size: 1.2rem;
+}
+
+.report-card p {
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.report-meta {
+  font-size: 0.85rem;
+  color: #999;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.report-meta span {
+  background: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+/* RESPONSYWNOŚĆ */
+@media (max-width: 900px) {
   .container {
-    padding: 10px;
+    grid-template-columns: 1fr;
   }
   
-  .form-section, .map-section, .reports-section {
-    padding: 15px;
-    margin: 10px 0;
+  .App-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+  
+  .App-header h1 {
+    font-size: 1.4rem;
   }
 }
