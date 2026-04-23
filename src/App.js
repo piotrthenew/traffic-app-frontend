@@ -12,7 +12,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
 });
 
-const API_URL = 'http://localhost:8000';
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
 function MapClickHandler({ onMapClick }) {
   useMapEvents({ click: (e) => onMapClick(e.latlng) });
