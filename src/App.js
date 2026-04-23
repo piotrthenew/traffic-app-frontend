@@ -58,15 +58,19 @@ function App() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${API_URL}/register`, null, {
-        params: { email: registerEmail, password: registerPassword, username: registerUsername }
+      // Zmieniono: wysyłamy jako JSON, nie jako params (backend oczekuje JSON)
+      await axios.post(`${API_URL}/api/register`, {
+        email: registerEmail,
+        password: registerPassword,
+        username: registerUsername
       });
       alert('Rejestracja udana! Możesz się zalogować.');
       setRegisterEmail('');
       setRegisterPassword('');
       setRegisterUsername('');
     } catch (error) {
-      alert('Błąd rejestracji');
+      console.error('Błąd rejestracji:', error);
+      alert('Błąd rejestracji: ' + (error.response?.data?.detail || 'Nieznany błąd'));
     }
   };
 
@@ -76,7 +80,8 @@ function App() {
       const formData = new URLSearchParams();
       formData.append('username', loginEmail);
       formData.append('password', loginPassword);
-      const response = await axios.post(`${API_URL}/login`, formData, {
+      // Zmieniono: dodano /api przed login
+      const response = await axios.post(`${API_URL}/api/login`, formData, {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
       });
       const newToken = response.data.access_token;
@@ -85,7 +90,8 @@ function App() {
       setIsLoggedIn(true);
       alert('Zalogowano pomyślnie');
     } catch (error) {
-      alert('Błąd logowania');
+      console.error('Błąd logowania:', error);
+      alert('Błąd logowania: ' + (error.response?.data?.detail || 'Nieznany błąd'));
     }
   };
 
@@ -112,8 +118,10 @@ function App() {
       });
       setNewReport({ title: '', description: '', lat: 52.2297, lng: 21.0122, report_type: 'korek' });
       setSelectedLocation(null);
+      await fetchReports(); // Odśwież listę po dodaniu
       alert('Zgłoszenie dodane!');
     } catch (error) {
+      console.error('Błąd dodawania zgłoszenia:', error);
       alert('Błąd dodawania zgłoszenia');
     }
   };
