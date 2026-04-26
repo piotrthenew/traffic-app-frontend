@@ -12,6 +12,10 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
 });
 
+// ============================================================
+// KLUCZOWA POPRAWKA: API_URL używa zmiennej środowiskowej
+// (działa lokalnie i na Vercel po ustawieniu REACT_APP_API_URL)
+// ============================================================
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
 function MapClickHandler({ onMapClick }) {
@@ -58,7 +62,6 @@ function App() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      // Zmieniono: wysyłamy jako JSON, nie jako params (backend oczekuje JSON)
       await axios.post(`${API_URL}/api/register`, {
         email: registerEmail,
         password: registerPassword,
@@ -80,7 +83,6 @@ function App() {
       const formData = new URLSearchParams();
       formData.append('username', loginEmail);
       formData.append('password', loginPassword);
-      // Zmieniono: dodano /api przed login
       const response = await axios.post(`${API_URL}/api/login`, formData, {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
       });
@@ -118,7 +120,7 @@ function App() {
       });
       setNewReport({ title: '', description: '', lat: 52.2297, lng: 21.0122, report_type: 'korek' });
       setSelectedLocation(null);
-      await fetchReports(); // Odśwież listę po dodaniu
+      await fetchReports();
       alert('Zgłoszenie dodane!');
     } catch (error) {
       console.error('Błąd dodawania zgłoszenia:', error);
